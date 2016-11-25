@@ -2,7 +2,8 @@
 ## or solves it if it isn't cached.
 ## copyright Eric Chow 2016.
 
-## Write a short comment describing this function
+## this function creates a special "matrix" object that
+## can cache its inverse.
 
 makeCacheMatrix <- function(x = matrix()) {
 	## returns a list of 4 functions that:
@@ -24,7 +25,10 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Write a short comment describing this function
+## this function computes the inverse of the special
+## "matrix" returned by makeCacheMatrix. If the inverse
+## has already been calculated (and the matrix has not changed)
+#3 then the cachesolve retrieves the inverse from the cache
 
 cacheSolve <- function(x, ...) {
     ## Return a matrix that is the inverse of 'x'
@@ -34,9 +38,9 @@ cacheSolve <- function(x, ...) {
             return(i)
     }
     data <- x$get()
-    m <- solve(data, ...)
+    i <- solve(data, ...)
     x$setinv(i)
-    m	
+    i	
 }
 
 
@@ -50,5 +54,9 @@ solve(A)
 # the identity matrix!
 A %*% solve(A)
 
-# should return inverse of A from cache, or solve if not in cache
-cacheSolve(makeCacheMatrix(A))
+# test if caches or solves
+matrix_A <- makeCacheMatrix(A)
+cacheSolve(matrix_A)
+
+
+#        ~ fin ~
